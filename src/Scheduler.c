@@ -35,8 +35,25 @@ size_t Scheduler_size(const struct Node* p_last){
 }
 
 void Scheduler_clear(struct Node** p_p_last){
-  ;
+  // Si solo hay un nodo
+  struct Node* primero = (*p_p_last)->p_next;
+  struct Node* iter;
+  if (primero == *p_p_last) {
+    free(*p_p_last);
+    *p_p_last = NULL;
+  }
+  else {
+
+  while (primero != *p_p_last) {
+    iter = primero->p_next;
+    free(primero);
+    primero = iter;
+  }
+  free(*p_p_last);
+    *p_p_last = NULL;
+  }
 }
+
 struct Task* Scheduler_first(const struct Node* p_last){
   if (p_last == NULL) {
   perror("ERROR al introducir los parametros");
@@ -69,7 +86,7 @@ void Scheduler_enqueue(struct Node** p_p_last,const struct Task* p_task){
 
 } 
 void Scheduler_dequeue(struct Node** p_p_last){
-  ;
+  
 }
 void Scheduler_step(struct Node** p_p_last){
   ;
