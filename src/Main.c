@@ -3,8 +3,7 @@
 //
 
 #include "Scheduler.h"
-#include <stdio.h>
-#include <stdlib.h>
+
 
 int main(void) {
   struct Node* sch = Scheduler_new();
@@ -17,9 +16,7 @@ int main(void) {
   Scheduler_enqueue(&sch, p_task2);
   Scheduler_enqueue(&sch, p_task3);
 
-  free(p_task1);
-  free(p_task2);
-  free(p_task3);
+
 
  //Se creativo....
 
