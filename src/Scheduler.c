@@ -3,7 +3,9 @@
 //
 
 #include "Scheduler.h"
+#include "Task.h"
 #include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 /*
@@ -86,11 +88,40 @@ void Scheduler_enqueue(struct Node** p_p_last,const struct Task* p_task){
 
 } 
 void Scheduler_dequeue(struct Node** p_p_last){
-  
+  if (p_p_last == NULL || *p_p_last == NULL) {
+  perror("Error al pasar los parametros");
+  exit(1);
+  }
+  if ((*p_p_last)->p_next == *p_p_last) {
+    free(*p_p_last);
+    *p_p_last = NULL;
+  }else {
+    struct Node* primero = (*p_p_last)->p_next;
+    (*p_p_last)->p_next = primero->p_next;
+    free(primero);
+  }
+
 }
 void Scheduler_step(struct Node** p_p_last){
-  ;
+  if (p_p_last == NULL || *p_p_last == NULL) {
+  perror("Error al pasar los parametros");
+  exit(1);
+  }
+   if ((*p_p_last)->p_next != *p_p_last) {
+    struct Node* primero = (*p_p_last)->p_next;
+    *p_p_last = primero;
+  }
 }
 void Scheduler_print(const struct Node* p_last){
-  ;
+   if (p_last == NULL) {
+  perror("Error al pasar los parametros");
+  exit(1);
+  }
+  struct Node* primero = (p_last)->p_next;
+  printf("Cola: ");
+  while (primero != p_last) {
+    Task_print(primero->task);
+    printf(" ---> ");
+  }
+  Task_print(p_last->task);
 }
